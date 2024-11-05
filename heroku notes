@@ -1,0 +1,5 @@
+heroku create cobra-shrooms
+heroku git:remote -a cobra-shrooms
+git push heroku main
+heroku run bash -a cobra-shrooms
+

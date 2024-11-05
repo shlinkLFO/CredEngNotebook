@@ -1,0 +1,26 @@
+# Enable PS-VM features
+dism /online /enable-feature /all /featurename:Microsoft-Hyper-V
+dism /online /enable-feature /all /featurename:Microsoft-Hyper-V-Management-PowerShell
+dism /online /enable-feature /all /featurename:Microsoft-Windows-Subsystem-Linux
+dism /online /enable-feature /all /featurename:VirtualMachinePlatform
+
+# create the VM
+New-VM -Name "linxvm" -MemoryStartupBytes 2GB -NewVHDPath "C:\Users\beydoun2\SaveStdate\Hyper-V\LinuxVM.vhdx" -NewVHDSizeBytes 20GB -Generation 2
+
+# Set the VM to use the WSL2 Linux kernel
+Set-VMDvdDrive -VMName "linxVM" -Path "C:\Users\beydoun2\SaveStdate\Hyper-V\ubuntu-24.10-desktop-amd64.iso"
+Set-VMFirmware -VMName "linxVM" -FirstBootDevice (Get-VMDvdDrive -VMName "linxvm")
+
+# start the VM
+Start-VM -Name "linxvm"
+
+# delete the VM
+Remove-VM -Name "linxvm" -Force
+
+# connect to the VM
+vmconnect.exe localhost linxvm
+
+
+
+
+

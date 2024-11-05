@@ -1,0 +1,23 @@
+#Set default repo
+gh repo set-default shlinkLFO/badgebadgermushroom
+
+#Sync repo
+gh repo sync
+
+#Push to main
+git push -u origin main
+
+#Create new repo
+gh repo create cobra-shroom --public --confirm
+
+#Clone new repo
+gh repo clone cobra-shroom
+
+#Navigate to new repo
+cd cobra-shroom
+
+#Install dependencies
+go mod tidy
+
+#Run the app
+go run .

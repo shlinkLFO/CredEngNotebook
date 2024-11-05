@@ -1,0 +1,40 @@
+# go to the virtual box folder
+cd "C:\Program Files\Oracle\VirtualBox"
+
+# create the VM
+.\VBoxManage.exe createvm --name "linxvm" --ostype "Ubuntu_64" --register
+
+# modify the VM
+.\VBoxManage.exe modifyvm "linxvm" --memory 4096 --vram 512
+.\VBoxManage.exe createmedium --filename "C:\Program Files\Oracle\VirtualBox" --size 20000 --format VDI
+.\VBoxManage.exe storagectl "linxvm" --name "SATA Controller" --add sata --controller IntelAHCI
+.\VBoxManage.exe createmedium disk --filename "C:\Program Files\Oracle\VirtualBox\linxvm.vdi" --size 20480 --format VDI
+.\VBoxManage.exe storageattach "linxvm" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "C:\Program Files\Oracle\VirtualBox\linxvm.vdi"
+.\VBoxManage.exe storagectl "linxvm" --name "IDE Controller" --add ide
+.\VBoxManage.exe storageattach "linxvm" --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium "C:\Users\beydoun2\SaveStdate\Hyper-V\ubuntu-24.10-desktop-amd64.iso"    
+
+# start the VM
+.\VBoxManage.exe startvm "linxvm" --type gui
+
+# power off the VM
+.\VBoxManage.exe controlvm "linxvm" poweroff
+
+#userpass
+shlinkLFO
+lowfreq240401
+
+$ sudo apt update
+$ sudo apt install openssh-server
+$ sudo systemctl start ssh
+$ sudo systemctl enable ssh
+$ sudo systemctl status ssh
+$ sudo apt install net-tools
+$ ifconfig
+
+#port forward in virtualbox:
+#network > port forwarding > add new port forwarding rule > host ip: 127.0.0.1, host port: 2222, guest port: 22
+
+ssh username@127.0.0.1 -p 2222
+PS: ssh username@<VM-IP-Address>
+
+
